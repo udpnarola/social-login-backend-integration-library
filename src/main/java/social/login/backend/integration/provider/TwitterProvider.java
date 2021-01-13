@@ -22,24 +22,17 @@ public class TwitterProvider extends SocialLoginProvider {
     private static final String REQUEST_TOKEN_KEY = "requestToken";
     private static final String TWITTER_KEY = "twitter";
 
-    private Twitter twitter;
-
     public TwitterProvider(String clientId, String clientSecret, String redirectUri) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
-
-        ConfigurationBuilder builder = new ConfigurationBuilder();
-        builder.setIncludeEmailEnabled(true);
-        builder.setOAuthConsumerKey(clientId);
-        builder.setOAuthConsumerSecret(clientSecret);
-        Configuration configuration = builder.build();
-        this.twitter = new TwitterFactory(configuration).getInstance();
     }
 
     public String getAuthenticationUrl(HttpServletRequest request) {
         RequestToken requestToken;
+        Twitter twitter;
         try {
+            twitter = initializeTwitter();
             requestToken = twitter.getOAuthRequestToken(redirectUri);
         } catch (TwitterException e) {
             throw new SocialProviderException(ERR_GET_TWITTER_REQUEST_TOKEN, e);
@@ -49,7 +42,16 @@ public class TwitterProvider extends SocialLoginProvider {
         return requestToken.getAuthorizationURL();
     }
 
-    public RedirectView twitterLogin(HttpServletRequest request) {
+    private Twitter initializeTwitter() {
+        ConfigurationBuilder builder = new ConfigurationBuilder();
+        builder.setIncludeEmailEnabled(true);
+        builder.setOAuthConsumerKey(clientId);
+        builder.setOAuthConsumerSecret(clientSecret);
+        Configuration configuration = builder.build();
+        return new TwitterFactory(configuration).getInstance();
+    }
+
+    public RedirectView login(HttpServletRequest request) {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl(getAuthenticationUrl(request));
         return redirectView;
