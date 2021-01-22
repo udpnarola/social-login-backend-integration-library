@@ -25,7 +25,7 @@ public class GoogleProvider extends SocialLoginProvider implements Oauth2Provide
     private static final JacksonFactory JSON_FACTORY = new JacksonFactory();
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final String TOKEN_URL = "https://oauth2.googleapis.com/token";
-    private String loginUrl = "https://accounts.google.com/o/oauth2/auth/identifier?response_type=code%20permission%20id_token&scope=profile%20email";
+    private String loginUrl = "https://accounts.google.com/o/oauth2/v2/auth?scope=profile%20email&response_type=code";
 
     public GoogleProvider(String clientId, String clientSecret, String redirectUri) {
         this.clientId = clientId;
