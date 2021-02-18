@@ -6,8 +6,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.springframework.web.servlet.view.RedirectView;
 import social.login.backend.integration.dto.SocialLoginDetail;
 import social.login.backend.integration.exception.UserDetailException;
@@ -16,7 +14,6 @@ import social.login.backend.integration.user.SocialUser;
 import social.login.backend.integration.util.SocialLoginUtil;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_GOOGLE_USER_DETAIL;
 
@@ -31,7 +28,7 @@ public class GoogleProvider extends SocialLoginProvider implements Oauth2Provide
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
-        prepareLoginUrl(clientId, redirectUri);
+        this.loginUrl = SocialLoginUtil.prepareLoginUrl(loginUrl, clientId, redirectUri);
     }
 
     public String getLoginUrl() {
@@ -39,9 +36,7 @@ public class GoogleProvider extends SocialLoginProvider implements Oauth2Provide
     }
 
     public RedirectView login() {
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl(loginUrl);
-        return redirectView;
+        return new RedirectView(loginUrl);
     }
 
     public SocialUser getUser(SocialLoginDetail socialLoginDetail) {
@@ -57,12 +52,6 @@ public class GoogleProvider extends SocialLoginProvider implements Oauth2Provide
         } catch (IOException e) {
             throw new UserDetailException(ERR_GET_GOOGLE_USER_DETAIL, e);
         }
-    }
-
-    private void prepareLoginUrl(String clientId, String redirectUri){
-        NameValuePair redirectUriParam = new BasicNameValuePair("redirect_uri", redirectUri);
-        NameValuePair clientIdParam = new BasicNameValuePair("client_id", clientId);
-        loginUrl = SocialLoginUtil.prepareUrl(loginUrl, Arrays.asList(redirectUriParam, clientIdParam));
     }
 
     private SocialUser prepareUser(GoogleIdToken.Payload payload) {
