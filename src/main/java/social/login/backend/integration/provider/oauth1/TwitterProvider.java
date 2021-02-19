@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_TWITTER_REQUEST_TOKEN;
 import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_TWITTER_USER_DETAIL;
 
-public class TwitterProvider extends SocialLoginProvider {
+public class TwitterProvider extends SocialLoginProvider implements Oauth1Provider {
 
     private static final String REQUEST_TOKEN_KEY = "requestToken";
     private static final String TWITTER_KEY = "twitter";
@@ -30,21 +30,6 @@ public class TwitterProvider extends SocialLoginProvider {
         this.redirectUri = redirectUri;
     }
 
-    //ToDo remove later
-    /*public String getAuthenticationUrl(HttpServletRequest request) {
-        RequestToken requestToken;
-        Twitter twitter;
-        try {
-            twitter = initializeTwitter();
-            requestToken = twitter.getOAuthRequestToken(redirectUri);
-        } catch (TwitterException e) {
-            throw new SocialProviderException(ERR_GET_TWITTER_REQUEST_TOKEN, e);
-        }
-        request.getSession().setAttribute(REQUEST_TOKEN_KEY, requestToken);
-        request.getSession().setAttribute(TWITTER_KEY, twitter);
-        return requestToken.getAuthorizationURL();
-    }*/
-
     private Twitter initializeTwitter() {
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.setIncludeEmailEnabled(true);
@@ -54,6 +39,7 @@ public class TwitterProvider extends SocialLoginProvider {
         return new TwitterFactory(configuration).getInstance();
     }
 
+    @Override
     public String getLoginUrl(HttpServletRequest request) {
         RequestToken requestToken;
         Twitter twitter;
@@ -68,14 +54,15 @@ public class TwitterProvider extends SocialLoginProvider {
         return requestToken.getAuthorizationURL();
     }
 
-    //ToDo remove later
-    /*public RedirectView login(HttpServletRequest request) {
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl(getAuthenticationUrl(request));
-        return redirectView;
-    }*/
+    @Override
+    public RedirectView login(HttpServletRequest request) {
+        return new RedirectView(getLoginUrl(request));
+    }
 
-    public SocialUser getUser(HttpServletRequest request, String oauthVerifier) {
+    @Override
+    public SocialUser getUser(SocialLoginDetail socialLoginDetail) {
+        HttpServletRequest request = socialLoginDetail.getHttpServletRequest();
+        String oauthVerifier = socialLoginDetail.getOauthVerifier();
         Twitter twitterManager = (Twitter) request.getSession().getAttribute(TWITTER_KEY);
         RequestToken requestToken = (RequestToken) request.getSession().getAttribute(REQUEST_TOKEN_KEY);
         User twitterUser;
@@ -95,7 +82,4 @@ public class TwitterProvider extends SocialLoginProvider {
         return socialUser;
     }
 
-    public SocialUser getUser(SocialLoginDetail socialLoginDetail) {
-        return null;
-    }
 }
