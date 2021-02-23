@@ -1,4 +1,4 @@
-package social.login.backend.integration.constant;
+package com.github.udpnarola.constant;
 
 public class ErrorMessage {
 

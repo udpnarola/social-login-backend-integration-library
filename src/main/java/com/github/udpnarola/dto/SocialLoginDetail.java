@@ -1,4 +1,4 @@
-package social.login.backend.integration.dto;
+package com.github.udpnarola.dto;
 
 import lombok.Getter;
 import lombok.Setter;

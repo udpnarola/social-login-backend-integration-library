@@ -1,7 +1,7 @@
-package social.login.backend.integration.provider.oauth1;
+package com.github.udpnarola.provider.oauth1;
 
 import org.springframework.web.servlet.view.RedirectView;
-import social.login.backend.integration.provider.OauthProvider;
+import com.github.udpnarola.provider.OauthProvider;
 
 import javax.servlet.http.HttpServletRequest;
 

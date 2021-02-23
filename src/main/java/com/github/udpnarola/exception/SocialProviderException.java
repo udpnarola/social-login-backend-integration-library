@@ -1,4 +1,4 @@
-package social.login.backend.integration.exception;
+package com.github.udpnarola.exception;
 
 public class SocialProviderException extends RuntimeException {
 

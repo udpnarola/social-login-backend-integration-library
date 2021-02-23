@@ -6,7 +6,7 @@
 
     <groupId>com.github.udpnarola</groupId>
     <artifactId>social-login-backend-integration-library</artifactId>
-    <version>1.0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <distributionManagement>

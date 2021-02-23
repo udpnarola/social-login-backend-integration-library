@@ -1,11 +1,11 @@
-package social.login.backend.integration.provider.oauth1;
+package com.github.udpnarola.provider.oauth1;
 
 import org.springframework.web.servlet.view.RedirectView;
-import social.login.backend.integration.dto.SocialLoginDetail;
-import social.login.backend.integration.exception.SocialProviderException;
-import social.login.backend.integration.exception.UserDetailException;
-import social.login.backend.integration.provider.SocialLoginProvider;
-import social.login.backend.integration.user.SocialUser;
+import com.github.udpnarola.dto.SocialLoginDetail;
+import com.github.udpnarola.exception.SocialProviderException;
+import com.github.udpnarola.exception.UserDetailException;
+import com.github.udpnarola.provider.SocialLoginProvider;
+import com.github.udpnarola.user.SocialUser;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -16,8 +16,8 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_TWITTER_REQUEST_TOKEN;
-import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_TWITTER_USER_DETAIL;
+import static com.github.udpnarola.constant.ErrorMessage.ERR_GET_TWITTER_REQUEST_TOKEN;
+import static com.github.udpnarola.constant.ErrorMessage.ERR_GET_TWITTER_USER_DETAIL;
 
 public class TwitterProvider extends SocialLoginProvider implements Oauth1Provider {
 

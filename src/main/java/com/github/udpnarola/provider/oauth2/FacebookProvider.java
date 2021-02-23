@@ -1,14 +1,14 @@
-package social.login.backend.integration.provider.oauth2;
+package com.github.udpnarola.provider.oauth2;
 
+import com.github.udpnarola.provider.SocialLoginProvider;
+import com.github.udpnarola.user.SocialUser;
+import com.github.udpnarola.util.SocialLoginUtil;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.api.User;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.web.servlet.view.RedirectView;
-import social.login.backend.integration.dto.SocialLoginDetail;
-import social.login.backend.integration.provider.SocialLoginProvider;
-import social.login.backend.integration.user.SocialUser;
-import social.login.backend.integration.util.SocialLoginUtil;
+import com.github.udpnarola.dto.SocialLoginDetail;
 
 import java.util.Map;
 

@@ -1,5 +1,11 @@
-package social.login.backend.integration.provider.oauth2;
+package com.github.udpnarola.provider.oauth2;
 
+import com.github.udpnarola.constant.ErrorMessage;
+import com.github.udpnarola.dto.SocialLoginDetail;
+import com.github.udpnarola.exception.UserDetailException;
+import com.github.udpnarola.provider.SocialLoginProvider;
+import com.github.udpnarola.user.SocialUser;
+import com.github.udpnarola.util.SocialLoginUtil;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
@@ -7,15 +13,8 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import org.springframework.web.servlet.view.RedirectView;
-import social.login.backend.integration.dto.SocialLoginDetail;
-import social.login.backend.integration.exception.UserDetailException;
-import social.login.backend.integration.provider.SocialLoginProvider;
-import social.login.backend.integration.user.SocialUser;
-import social.login.backend.integration.util.SocialLoginUtil;
 
 import java.io.IOException;
-
-import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_GOOGLE_USER_DETAIL;
 
 public class GoogleProvider extends SocialLoginProvider implements Oauth2Provider {
 
@@ -50,7 +49,7 @@ public class GoogleProvider extends SocialLoginProvider implements Oauth2Provide
             GoogleIdToken.Payload payload = tokenResponse.parseIdToken().getPayload();
             return prepareUser(payload);
         } catch (IOException e) {
-            throw new UserDetailException(ERR_GET_GOOGLE_USER_DETAIL, e);
+            throw new UserDetailException(ErrorMessage.ERR_GET_GOOGLE_USER_DETAIL, e);
         }
     }
 

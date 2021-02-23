@@ -1,4 +1,4 @@
-package social.login.backend.integration.provider;
+package com.github.udpnarola.provider;
 
 public abstract class SocialLoginProvider {
 

@@ -1,4 +1,4 @@
-package social.login.backend.integration.provider.oauth2;
+package com.github.udpnarola.provider.oauth2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.http.ResponseEntity;
@@ -7,15 +7,15 @@ import org.springframework.social.linkedin.api.impl.LinkedInTemplate;
 import org.springframework.social.linkedin.connect.LinkedInConnectionFactory;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.servlet.view.RedirectView;
-import social.login.backend.integration.dto.SocialLoginDetail;
-import social.login.backend.integration.provider.SocialLoginProvider;
-import social.login.backend.integration.user.SocialUser;
-import social.login.backend.integration.util.SocialLoginUtil;
+import com.github.udpnarola.dto.SocialLoginDetail;
+import com.github.udpnarola.provider.SocialLoginProvider;
+import com.github.udpnarola.user.SocialUser;
+import com.github.udpnarola.util.SocialLoginUtil;
 
 import java.util.Objects;
 
-import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_LINKEDIN_USER_DETAIL;
-import static social.login.backend.integration.constant.ErrorMessage.ERR_GET_LINKEDIN_USER_EMAIL;
+import static com.github.udpnarola.constant.ErrorMessage.ERR_GET_LINKEDIN_USER_DETAIL;
+import static com.github.udpnarola.constant.ErrorMessage.ERR_GET_LINKEDIN_USER_EMAIL;
 
 public class LinkedinProvider extends SocialLoginProvider implements Oauth2Provider {
 
